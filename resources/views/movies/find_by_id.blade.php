@@ -2,7 +2,7 @@
 
 @section('content')    
 <h1>{{$movie->name}}</h1>
-<div>
+<div class="movie__details">
         <div>Run time {{$movie->length}}</div>
         <div>Year {{$movie->year}}</div>
         <div>Rating {{$movie->rating}}</div>
