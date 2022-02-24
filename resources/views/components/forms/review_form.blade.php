@@ -1,6 +1,6 @@
 <form action="/movies/rate" method="post">
     @csrf
-    <input type="hidden" name="movie_id" value="{{$movie_details->id}}">
+    <input type="hidden" name="movie_id" value="{{$movie->id}}">
     <div class="input__field">
         <label for="text">Your review</label>
         <input id="text" name="text" type="text">

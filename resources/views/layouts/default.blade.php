@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+    @if (Session::has('success_message'))
+    <div class="alert alert-success">
+        {{ Session::get('success_message') }}
+    </div>
+    @endif
+    
     @include('../includes/header')
     @yield('content')
     @include('../includes/footer')

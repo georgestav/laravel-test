@@ -12,11 +12,10 @@ Route::get('/', [MovieController::class, 'index']);
 
 //movies page
 Route::get('/movies', [MovieController::class, 'index']);
-
 Route::get('/movies/create', [MovieController::class, 'create']);
-Route::post('/movies/store', [MovieController::class, 'store']);
-
+Route::post('/movies', [MovieController::class, 'store']);
 Route::get('/movies/{id}', [MovieController::class, 'show']);
+Route::delete('/movies/{id}', [MovieController::class, 'delete']);
 
 //rating a movie
 Route::post('/movies/rate', [ReviewController::class, 'store']);
