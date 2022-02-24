@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Movie;
-use App\Models\People;
-use App\Models\MoviePerson;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class MovieController extends Controller
 {
@@ -25,18 +22,11 @@ class MovieController extends Controller
         return view('movies.index', compact('movies'));
     }
 
-
-    /**
-     * Find movie by id
-     */
-    protected function findByID(int $id): mixed
+    protected function show($id)
     {
-        $movie_details = Movie::find($id);
-        $movie_details->movieType;
-        $movie_details->moviePerson;
+        $movie = Movie::find($id);
 
-        dump($movie_details);
-        return view('movies.find_by_id', compact('movie_details'));
+        return view('movies.find_by_id', ['movie_details' => $movie]);
     }
 
     protected function create(): mixed
@@ -46,8 +36,12 @@ class MovieController extends Controller
 
     protected function store(Request $request)
     {
-        dump($request->name);
-        return 'ok';
+        $movie = new Movie;
+        $movie->name = $request->input('name');
+        $movie->year = $request->input('year');
+        $movie->save();
+
+        return redirect()->action([MovieController::class, 'show'], ['id' => $movie->id]);
     }
 }
 //access the movie reviews as:

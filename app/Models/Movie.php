@@ -15,6 +15,7 @@ class Movie extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
     /**
      * Get the movie type
      * featured, filming etc
