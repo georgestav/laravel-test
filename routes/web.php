@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [MovieController::class, 'index']);
 
 //movies page
-Route::get('/movies', [MovieController::class, 'index']);
+Route::post('/movies/search', [MovieController::class, 'search']);
+
+Route::get('/movies', [MovieController::class, 'topMovies']);
 Route::get('/movies/create', [MovieController::class, 'create']);
 Route::post('/movies', [MovieController::class, 'store']);
 Route::get('/movies/{id}', [MovieController::class, 'show']);

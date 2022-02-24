@@ -1,7 +1,7 @@
 @extends('../layouts/default',['title'=>'Create a new movie'])
 
 @section('content')
-<form action="{{ action([\App\Http\Controllers\MovieController::Class,'store']) }}" method="post">
+<form action="{{ action('MovieController@store') }}" method="post">
     @csrf
     <div>
         <label for="">Title</label>

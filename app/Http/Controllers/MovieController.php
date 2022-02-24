@@ -4,14 +4,34 @@ namespace App\Http\Controllers;
 
 use App\Models\Movie;
 use Illuminate\Http\Request;
+use Spatie\LaravelIgnition\Recorders\DumpRecorder\Dump;
 
 class MovieController extends Controller
 {
     /**
+     * Default index page for movies
+     */
+    protected function index(): mixed
+    {
+        return view('movies.index');
+    }
+
+    /**
+     * Search function by name of movie
+     */
+    protected function search(Request $request): object
+    {
+        $search_term = $request->input('search');
+        $movies = Movie::where('name', 'LIKE', '%' . $search_term . '%')->get();
+
+        return view('movies.search_results', compact('movies'));
+    }
+
+    /**
      * A list of movies
      * (top 50)
      */
-    protected function index(): mixed
+    protected function topMovies(): mixed
     {
         $movies = Movie::query()
             ->orderBy('rating', 'desc')
@@ -19,22 +39,31 @@ class MovieController extends Controller
             ->where('movie_type_id', 1)
             ->where('votes_nr', '>', 5000)
             ->get();
-        return view('movies.index', compact('movies'));
+        return view('movies.topMovies', compact('movies'));
     }
 
-    protected function show($id)
+    /**
+     * Find movie by id return a view
+     */
+    protected function show($id): mixed
     {
         $movie = Movie::findOrFail($id);
 
         return view('movies.find_by_id', compact('movie'));
     }
 
+    /**
+     * Form to create a new movie
+     */
     protected function create(): mixed
     {
         return view('movies.form');
     }
 
-    protected function store(Request $request)
+    /**
+     * Save new movie
+     */
+    protected function store(Request $request): mixed
     {
         $movie = new Movie;
         $movie->name = $request->input('name');
@@ -44,11 +73,14 @@ class MovieController extends Controller
         return redirect()->action([MovieController::class, 'show'], ['id' => $movie->id]);
     }
 
-    protected function delete($id)
+    /**
+     * Delete movie by id
+     */
+    protected function delete($id): mixed
     {
         $movie = Movie::findOrFail($id);
         $movie->delete();
         session()->flash('success_message', 'The movie was successfully deleted!');
-        return redirect()->action([MovieController::class, 'index']);
+        return redirect()->action([MovieController::class, 'topMovies']);
     }
 }
