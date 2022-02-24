@@ -19,11 +19,17 @@ class MovieController extends Controller
     /**
      * Search function by name of movie
      */
-    protected function search(Request $request): object
+    protected function search(Request $request): mixed
     {
         $search_term = $request->input('search');
         $movies = Movie::where('name', 'LIKE', '%' . $search_term . '%')->get();
 
+        if ($movies->isEmpty()) {
+            session()->flash('error_message', 'No movie was found');
+            return redirect()->back();
+        }
+
+        session()->flash('success_message', 'The following movies where found');
         return view('movies.search_results', compact('movies'));
     }
 
