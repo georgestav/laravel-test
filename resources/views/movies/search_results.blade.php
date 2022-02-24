@@ -2,7 +2,9 @@
 
 @section('content')
     <ul>
-        @dump($movies)
+        @php
+           echo $movies->count().' Movies where found';
+        @endphp
         @foreach ($movies as $movie)
         <li>{{$movie->year}} {{$movie->name}} <a href="{{ action('MovieController@show',['id'=>$movie->id])}}">Read more</a></li>
         @endforeach

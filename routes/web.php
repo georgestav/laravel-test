@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-// use App\Http\Controllers\IndexController;
-// use App\Http\Controllers\MovieController;
-// use App\Http\Controllers\VideogameController;
 use Illuminate\Support\Facades\Route;
 
 //default route

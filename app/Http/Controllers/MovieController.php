@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Movie;
 use Illuminate\Http\Request;
-use Spatie\LaravelIgnition\Recorders\DumpRecorder\Dump;
 
 class MovieController extends Controller
 {
