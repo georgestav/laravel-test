@@ -6,7 +6,7 @@
 
     {{-- search section --}}
     <div class="search__container">
-        <form action="{{ action('MovieController@search']) }}" method="post">
+        <form action="{{ action('MovieController@search') }}" method="post">
             @csrf
             <div class="search--input">
                 <label for="search">Search by movie title</label>

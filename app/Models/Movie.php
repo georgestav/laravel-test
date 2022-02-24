@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\MovieType;
-use App\Models\MoviePerson;
+use App\Models\MovieStatus;
 
 /**
  * Movie
@@ -16,18 +16,29 @@ class Movie extends Model
     use HasFactory;
 
     public $timestamps = false;
+
     /**
-     * Get the movie type
-     * featured, filming etc
+     * Get the Movie type
      */
-    protected function movieType(): mixed
+    public function movieType()
     {
-        return $this->belongsTo(MovieType::class);
+        return $this->hasOne(MovieType::class, 'id', 'movie_type_id');
     }
 
-    protected function moviePerson()
+    /**
+     * Get the Movie status
+     */
+    public function movieStatus()
     {
-        return $this->hasMany(MoviePerson::class);
+        return $this->hasOne(MovieStatus::class, 'id', 'movie_status_id');
+    }
+
+    /**
+     * Get the Movie certification
+     */
+    public function certification()
+    {
+        return $this->hasOne(Certification::class, 'id', 'certification_id');
     }
 
     /**
